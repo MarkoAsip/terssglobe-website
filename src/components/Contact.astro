@@ -1,0 +1,62 @@
+---
+import { site } from "../site.config";
+---
+
+<section id="kontakt">
+  <div class="container grid grid-2">
+    <div>
+      <h2>Kontaktirajte nas</h2>
+      <p class="muted">Javite se za besplatne konzultacije ili upit.</p>
+      <ul class="info">
+        <li><strong>Telefon:</strong> <a href={`tel:${site.phoneHref}`}>{site.phone}</a></li>
+        <li><strong>Email:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><strong>Adresa:</strong> {site.address}</li>
+        <li><strong>Radno vrijeme:</strong> {site.hours}</li>
+      </ul>
+    </div>
+
+    <!-- Web3Forms: radi na svakom statičnom hostingu. Vidi site.config.ts -->
+    <form action="https://api.web3forms.com/submit" method="POST" class="form">
+      <input type="hidden" name="access_key" value={site.formAccessKey} />
+      <input type="hidden" name="subject" value={`Novi upit sa stranice ${site.shortName}`} />
+      <!-- honeypot protiv spama -->
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+      <label>Ime i prezime
+        <input type="text" name="name" required />
+      </label>
+      <label>Email
+        <input type="email" name="email" required />
+      </label>
+      <label>Poruka
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+      <button type="submit" class="btn">Pošalji upit</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .info { list-style: none; margin-top: 1.25rem; display: grid; gap: 0.6rem; }
+  .form {
+    background: var(--bg);
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    border: 1px solid #eaecef;
+    display: grid;
+    gap: 1rem;
+  }
+  label { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.9rem; }
+  input, textarea {
+    font: inherit;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid #d3d8de;
+    border-radius: 8px;
+    background: #fff;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 90, 168, 0.15);
+  }
+</style>

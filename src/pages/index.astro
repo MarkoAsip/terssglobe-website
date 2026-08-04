@@ -1,0 +1,36 @@
+---
+// =============================================================
+//  REDOSLIJED SEKCIJA — ovdje po klijentu premještaš / brišeš.
+//  Sekcije se same skrivaju ako su isključene u site.config.ts.
+// =============================================================
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Gallery from "../components/Gallery.astro";
+import Pricing from "../components/Pricing.astro";
+import About from "../components/About.astro";
+import Team from "../components/Team.astro";
+import Booking from "../components/Booking.astro";
+import Faq from "../components/Faq.astro";
+import Cta from "../components/Cta.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+  <Header />
+  <main>
+    <Cta />
+    <Hero />
+    <Services />
+    <Gallery />
+    <Pricing />
+    <About />
+    <Team />
+    <Booking />
+    <Faq />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>

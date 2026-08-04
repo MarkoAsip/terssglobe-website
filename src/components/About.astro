@@ -1,0 +1,37 @@
+---
+import { about } from "../site.config";
+---
+
+<section id="o-nama">
+  <div class="container grid grid-2">
+    <div>
+      <h2>{about.title}</h2>
+      {about.text.map((p) => <p class="muted about-p">{p}</p>)}
+    </div>
+    <div class="stats">
+      {about.stats.map((st) => (
+        <div class="stat">
+          <div class="num">{st.number}</div>
+          <div class="lbl muted">{st.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-p { margin-bottom: 1rem; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .stat {
+    background: var(--bgAlt);
+    border-radius: var(--radius);
+    padding: 1.5rem 0.75rem;
+    text-align: center;
+  }
+  .num { font-size: 1.9rem; font-weight: 800; color: var(--primary); }
+  .lbl { font-size: 0.85rem; }
+</style>

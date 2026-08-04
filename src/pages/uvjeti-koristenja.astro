@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site, legal } from "../site.config";
+---
+
+<Layout title={legal.terms.title} description={`Uvjeti korištenja — ${site.name}`}>
+  <Header />
+  <main class="legal">
+    <div class="container narrow">
+      <h1>{legal.terms.title}</h1>
+      <p class="muted upd">Zadnja izmjena: {legal.updated}</p>
+
+      <p>
+        Korištenjem web stranice {site.url} ("Stranica") prihvaćate ove Uvjete
+        korištenja. Stranicom upravlja {site.name}, {site.address}.
+        Ako se ne slažete s uvjetima, molimo da ne koristite Stranicu.
+      </p>
+
+      <h2>1. Opće odredbe</h2>
+      <p>
+        Sadržaj Stranice služi u informativne svrhe. Zadržavamo pravo izmjene sadržaja,
+        usluga i ovih Uvjeta u bilo kojem trenutku, bez prethodne najave.
+      </p>
+
+      <h2>2. Intelektualno vlasništvo</h2>
+      <p>
+        Svi sadržaji na Stranici (tekstovi, logotipi, slike, dizajn) vlasništvo su
+        {site.name} ili se koriste uz dopuštenje, te su zaštićeni propisima o
+        autorskom pravu. Zabranjeno je umnožavanje, distribucija ili korištenje bez
+        našeg pisanog odobrenja.
+      </p>
+
+      <h2>3. Korištenje Stranice</h2>
+      <p>
+        Obvezujete se Stranicu koristiti u skladu sa zakonom i dobrim običajima, te
+        je nećete koristiti na način koji bi mogao naštetiti njezinom radu ili drugim
+        korisnicima.
+      </p>
+
+      <h2>4. Obrasci i upiti</h2>
+      <p>
+        Slanjem upita putem kontakt forme ili forme za rezervaciju jamčite da su
+        dostavljeni podaci točni. Obrada tih podataka opisana je u
+        <a href={`/${legal.privacy.slug}`}>Politici privatnosti</a>.
+      </p>
+
+      <h2>5. Ograničenje odgovornosti</h2>
+      <p>
+        Nastojimo održavati točnost i dostupnost Stranice, ali ne jamčimo da će biti
+        bez pogrešaka ili neprekidno dostupna. Ne odgovaramo za eventualnu štetu
+        nastalu korištenjem ili nemogućnošću korištenja Stranice, u mjeri dopuštenoj
+        zakonom.
+      </p>
+
+      <h2>6. Poveznice na druge stranice</h2>
+      <p>
+        Stranica može sadržavati poveznice na vanjske web stranice nad kojima nemamo
+        kontrolu i za čiji sadržaj ne odgovaramo.
+      </p>
+
+      <h2>7. Mjerodavno pravo</h2>
+      <p>
+        Na ove Uvjete primjenjuje se pravo Republike Hrvatske. Za sporove je nadležan
+        stvarno nadležan sud u Republici Hrvatskoj.
+      </p>
+
+      <p class="back"><a href="/">← Povratak na početnu</a></p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal { padding: 3.5rem 0; }
+  .narrow { max-width: 760px; }
+  .legal h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 0.25rem; }
+  .legal h2 { font-size: 1.2rem; margin: 2rem 0 0.5rem; }
+  .legal p { margin-bottom: 0.9rem; }
+  .upd { margin-bottom: 2rem; font-size: 0.9rem; }
+  .back { margin-top: 2.5rem; }
+</style>

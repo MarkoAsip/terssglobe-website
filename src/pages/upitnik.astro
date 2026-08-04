@@ -1,0 +1,151 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../site.config";
+
+const sekcije = [
+  "Usluge", "O nama", "Galerija / reference", "Cjenik",
+  "Rezervacije termina", "Česta pitanja (FAQ)", "Tim", "Kontakt forma",
+];
+---
+
+<Layout title="Upitnik za izradu web stranice" description="Ispunite kratki upitnik i javljamo se s prijedlogom.">
+  <Header />
+  <main class="upitnik">
+    <div class="container narrow">
+      <h1>Upitnik za izradu web stranice</h1>
+      <p class="muted lead">
+        Ispunite nekoliko kratkih pitanja — dovoljno je par riječi. Na temelju odgovora
+        pripremamo prijedlog i cijenu i javljamo vam se.
+      </p>
+
+      <form id="upitnik-form" class="form">
+        <input type="hidden" name="access_key" value={site.formAccessKey} />
+        <input type="hidden" name="subject" value="Novi upitnik za web stranicu" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <label>Vaše ime i tvrtka *
+          <input type="text" name="Ime i tvrtka" required />
+        </label>
+
+        <label>Vaš email (da vam odgovorimo) *
+          <input type="email" name="Email za odgovor" required />
+        </label>
+
+        <label>Čime se bavite? *
+          <input type="text" name="Djelatnost" required />
+        </label>
+
+        <label>Što želite da stranica postigne?
+          <textarea name="Cilj stranice" rows="3" placeholder="npr. više upita, prodaja, vidljivost"></textarea>
+        </label>
+
+        <label>Imate li logo i boje branda?
+          <input type="text" name="Logo i boje" />
+        </label>
+
+        <fieldset class="checks">
+          <legend>Koje sekcije želite na stranici?</legend>
+          {sekcije.map((s) => (
+            <label class="check">
+              <input type="checkbox" name="Sekcije" value={s} /> <span>{s}</span>
+            </label>
+          ))}
+          <label class="check other">
+            <input type="checkbox" name="Sekcije" value="Ostalo" /> <span>Ostalo:</span>
+            <input type="text" name="Sekcije - ostalo" class="other-input" />
+          </label>
+        </fieldset>
+
+        <label>Imate li već domenu? Koju?
+          <input type="text" name="Domena" />
+        </label>
+
+        <label>Primjer stranice koja vam se sviđa (link)
+          <input type="text" name="Primjer stranice" placeholder="https://..." />
+        </label>
+
+        <label>Željeni rok ili datum objave
+          <input type="text" name="Rok" />
+        </label>
+
+        <button type="submit" class="btn">Pošalji upitnik</button>
+        <p id="ok-msg" class="ok" hidden>✓ Hvala! Upitnik je zaprimljen — javljamo se uskoro.</p>
+        <p id="err-msg" class="err" hidden>Nešto je pošlo po zlu. Pokušajte ponovno ili nam pišite na {site.email}.</p>
+      </form>
+
+      <p class="muted materijali">
+        <strong>Materijali (slike, video, logo):</strong> ne morate ih slati sad. Manje datoteka
+        pošaljite emailom na {site.email}, a puno slika ili video preko Google Drivea ili
+        WeTransfera (besplatno) — samo nam pošaljite link.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const form = document.getElementById("upitnik-form") as HTMLFormElement | null;
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const ok = document.getElementById("ok-msg");
+    const err = document.getElementById("err-msg");
+    ok?.setAttribute("hidden", "");
+    err?.setAttribute("hidden", "");
+    const btn = form.querySelector("button[type=submit]") as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = "Šaljem…";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const data = await res.json();
+      if (data.success) {
+        form.reset();
+        ok?.removeAttribute("hidden");
+        ok?.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        err?.removeAttribute("hidden");
+      }
+    } catch {
+      err?.removeAttribute("hidden");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Pošalji upitnik";
+    }
+  });
+</script>
+
+<style>
+  .upitnik { padding: 3rem 0 4rem; }
+  .narrow { max-width: 720px; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 0.5rem; }
+  .lead { margin-bottom: 2rem; }
+  .form { display: grid; gap: 1.1rem; }
+  label { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.92rem; }
+  input[type="text"], input[type="email"], textarea {
+    font: inherit; padding: 0.7rem 0.85rem;
+    border: 1px solid #d3d8de; border-radius: 8px; background: #fff; width: 100%;
+  }
+  input:focus, textarea:focus {
+    outline: none; border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+  .checks {
+    border: 1px solid #e2e5ea; border-radius: var(--radius);
+    padding: 1rem 1.15rem; display: grid; gap: 0.5rem;
+  }
+  .checks legend { font-weight: 700; padding: 0 0.4rem; font-size: 0.92rem; }
+  .check { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+  .check input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); }
+  .check.other { flex-wrap: wrap; }
+  .other-input { flex: 1; min-width: 160px; }
+  .ok { color: #1a7f37; font-weight: 600; margin: 0; }
+  .err { color: #c0362c; font-weight: 600; margin: 0; }
+  .materijali {
+    margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid #e2e5ea;
+    font-size: 0.9rem; line-height: 1.6;
+  }
+</style>

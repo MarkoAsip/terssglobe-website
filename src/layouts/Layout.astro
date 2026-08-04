@@ -1,0 +1,59 @@
+---
+import { site } from "../site.config";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} | ${site.shortName}` : `${site.name} — ${site.tagline}`;
+const pageDesc = description ?? site.description;
+
+// Ubrizgaj boje iz config-a u CSS varijable
+const c = site.colors;
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+
+    <!-- Open Graph (za lijep prikaz kad se dijeli link) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={site.url} />
+    <meta property="og:locale" content="hr_HR" />
+
+    <!-- Boje branda kao globalne CSS varijable -->
+    <style define:vars={{
+      primary: c.primary,
+      primaryDark: c.primaryDark,
+      text: c.text,
+      muted: c.muted,
+      bg: c.bg,
+      bgAlt: c.bgAlt,
+    }}></style>
+
+    <!-- Lokalni biznis structured data (dobro za Google) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: site.name,
+      description: site.description,
+      telephone: site.phone,
+      email: site.email,
+      address: site.address,
+      url: site.url,
+    })} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

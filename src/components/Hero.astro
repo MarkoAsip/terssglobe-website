@@ -1,0 +1,47 @@
+---
+import { site } from "../site.config";
+---
+
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="eyebrow">Web studio · Zagreb</p>
+    <h1>{site.tagline}</h1>
+    <p class="muted lead">{site.description}</p>
+    <div class="hero-cta">
+      <a href="#kontakt" class="btn">Kontaktirajte nas</a>
+      <a href={`tel:${site.phoneHref}`} class="btn btn-outline">{site.phone}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: 6rem 0 5.5rem;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 90% at 15% 10%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 60%),
+      radial-gradient(50% 80% at 95% 20%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 55%),
+      linear-gradient(180deg, var(--bgAlt), var(--bg) 70%);
+  }
+  .hero-inner { max-width: 780px; position: relative; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.1rem;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .lead { font-size: 1.18rem; margin-bottom: 2rem; max-width: 620px; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+</style>

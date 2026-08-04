@@ -1,0 +1,51 @@
+---
+import { site, gallery, pricing, faq } from "../site.config";
+const b = site.booking;
+const showBooking =
+  ((b.mode === "google" || b.mode === "google-button") && b.googleBookingUrl) ||
+  (b.mode === "external" && b.externalUrl) ||
+  b.mode === "form";
+---
+
+<header class="hdr">
+  <div class="container hdr-inner">
+    <a href="/" class="brand"><img src="/logo.png" alt={site.name} class="brand-logo" /></a>
+    <nav>
+      <a href="/#usluge">Usluge</a>
+      {gallery.enabled && <a href="/#galerija">Galerija</a>}
+      {pricing.enabled && <a href="/#cjenik">Cjenik</a>}
+      <a href="/#o-nama">O nama</a>
+      {showBooking && <a href="/#rezervacije">Rezervacije</a>}
+      {faq.enabled && <a href="/#faq">FAQ</a>}
+      <a href="/#kontakt">Kontakt</a>
+      <a href={`tel:${site.phoneHref}`} class="btn hdr-cta">Nazovi</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #eaecef;
+  }
+  .hdr-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .brand { display: flex; align-items: center; }
+  .brand-logo { height: 40px; width: auto; display: block; }
+  nav { display: flex; align-items: center; gap: 1.5rem; }
+  nav a { color: var(--text); font-weight: 500; }
+  nav a:hover { color: var(--primary); }
+  .hdr-cta { padding: 0.5rem 1rem; color: #fff; }
+  .hdr-cta:hover { color: #fff; }
+  @media (max-width: 620px) {
+    nav a:not(.hdr-cta) { display: none; }
+  }
+</style>

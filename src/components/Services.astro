@@ -1,0 +1,78 @@
+---
+import { services } from "../site.config";
+---
+
+<section id="usluge" class="alt">
+  <div class="container">
+    <div class="section-head">
+      <h2>Naše usluge</h2>
+      <p class="muted">Ono što radimo za vas.</p>
+    </div>
+    <div class="svc">
+      {services.map((s) => (
+        <article class="card">
+          {s.icon.startsWith("/") || s.icon.startsWith("http")
+            ? <img class="icon-img" src={s.icon} alt="" loading="lazy" />
+            : <div class="icon">{s.icon}</div>}
+          <h3>{s.title}</h3>
+          <p class="muted">{s.text}</p>
+        </article>
+      ))}
+    </div>
+    <p class="swipe-hint muted">← povucite za više →</p>
+  </div>
+</section>
+
+<style>
+  /* MOBITEL: vodoravni carousel sa snap-om */
+  .svc {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 80%;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.75rem;
+    margin: 0 -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .svc::-webkit-scrollbar { display: none; }
+  .svc > .card { scroll-snap-align: center; }
+
+  .swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .card {
+    background: var(--bg);
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    border: 1px solid #eaecef;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+  }
+  .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .icon-img { width: 56px; height: 56px; object-fit: contain; margin-bottom: 0.85rem; display: block; }
+  h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+
+  /* DESKTOP: 4 u red, bez carousela */
+  @media (min-width: 900px) {
+    .svc {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-columns: auto;
+      overflow: visible;
+      margin: 0;
+      padding: 0;
+    }
+    .swipe-hint { display: none; }
+  }
+</style>

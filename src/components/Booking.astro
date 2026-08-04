@@ -1,0 +1,148 @@
+---
+import { site } from "../site.config";
+const b = site.booking;
+
+// Prikaži sekciju samo ako je način rada spreman (ima potrebne podatke)
+const show =
+  ((b.mode === "google" || b.mode === "google-button") && b.googleBookingUrl) ||
+  (b.mode === "external" && b.externalUrl) ||
+  b.mode === "form";
+---
+
+{show && (
+  <section id="rezervacije" class="alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>Dogovorite razgovor</h2>
+        <p class="muted">Odaberite slobodan termin — potvrda vam stiže odmah.</p>
+      </div>
+
+      {b.mode === "google" && (
+        <div class="embed">
+          <iframe
+            src={b.googleBookingUrl}
+            title="Rezervacija termina"
+            style="border:0"
+            width="100%"
+            height="620"
+            frameborder="0"
+          ></iframe>
+        </div>
+      )}
+
+      {b.mode === "google-button" && (
+        <div class="gbtn">
+          <div id="gcal-btn-target"></div>
+          <script
+            is:inline
+            define:vars={{ url: b.googleBookingUrl, label: b.googleBookingLabel }}
+          >
+            (function () {
+              var css = document.createElement("link");
+              css.rel = "stylesheet";
+              css.href = "https://calendar.google.com/calendar/scheduling-button-script.css";
+              document.head.appendChild(css);
+              var s = document.createElement("script");
+              s.src = "https://calendar.google.com/calendar/scheduling-button-script.js";
+              s.async = true;
+              s.onload = function () {
+                (window).calendar.schedulingButton.load({
+                  url: url,
+                  color: "#4f46e5",
+                  label: label,
+                  target: document.getElementById("gcal-btn-target"),
+                });
+              };
+              document.head.appendChild(s);
+            })();
+          </script>
+        </div>
+      )}
+
+      {b.mode === "external" && (
+        <div class="ext">
+          <a href={b.externalUrl} target="_blank" rel="noopener" class="btn">
+            {b.externalLabel}
+          </a>
+        </div>
+      )}
+
+      {b.mode === "form" && (
+        <div class="wrap">
+          <form id="booking-form" class="form">
+            <input type="hidden" name="access_key" value={site.formAccessKey} />
+            <input type="hidden" name="subject" value="Novi upit za termin / razgovor" />
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+            <div class="row">
+              <label>Ime i prezime *
+                <input type="text" name="Ime" required />
+              </label>
+              <label>Telefon / email *
+                <input type="text" name="Kontakt" required />
+              </label>
+            </div>
+            <div class="row two">
+              <label>Željeni datum
+                <input type="date" name="Željeni datum" />
+              </label>
+              <label>Željeno vrijeme
+                <input type="time" name="Željeno vrijeme" />
+              </label>
+            </div>
+            <label>Tema razgovora / napomena
+              <textarea name="Napomena" rows="3" placeholder="Ukratko o čemu želite razgovarati"></textarea>
+            </label>
+            <button type="submit" class="btn">Pošalji upit</button>
+            <p id="booking-ok" class="ok" hidden>✓ Hvala! Vaš upit je zaprimljen, javljamo se uskoro.</p>
+            <p id="booking-err" class="err" hidden>Nešto je pošlo po zlu. Pokušajte ponovno ili pišite na {site.email}.</p>
+          </form>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<script>
+  const form = document.getElementById("booking-form") as HTMLFormElement | null;
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const ok = document.getElementById("booking-ok");
+    const err = document.getElementById("booking-err");
+    ok?.setAttribute("hidden", "");
+    err?.setAttribute("hidden", "");
+    const btn = form.querySelector("button[type=submit]") as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = "Šaljem…";
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) });
+      const data = await res.json();
+      if (data.success) { form.reset(); ok?.removeAttribute("hidden"); }
+      else { err?.removeAttribute("hidden"); }
+    } catch { err?.removeAttribute("hidden"); }
+    finally { btn.disabled = false; btn.textContent = "Pošalji upit"; }
+  });
+</script>
+
+<style>
+  .embed { max-width: 800px; margin: 0 auto; border-radius: var(--radius); overflow: hidden; background: #fff; }
+  .embed iframe { display: block; }
+  .gbtn { display: flex; justify-content: center; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  .ext { text-align: center; }
+  .form {
+    background: var(--bg); padding: 1.75rem; border-radius: var(--radius);
+    border: 1px solid #eaecef; display: grid; gap: 1rem;
+  }
+  .row { display: grid; gap: 1rem; }
+  @media (min-width: 560px) { .row.two, .row { grid-template-columns: 1fr 1fr; } }
+  label { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.9rem; }
+  input, textarea {
+    font: inherit; padding: 0.7rem 0.85rem; border: 1px solid #d3d8de;
+    border-radius: 8px; background: #fff;
+  }
+  input:focus, textarea:focus {
+    outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+  .ok { color: #1a7f37; font-weight: 600; margin: 0; }
+  .err { color: #c0362c; font-weight: 600; margin: 0; }
+</style>

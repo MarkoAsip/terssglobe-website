@@ -1,0 +1,32 @@
+# --- Build & ovisnosti (nikad na Git) ---
+node_modules/
+dist/
+.astro/
+.vercel/
+.netlify/
+
+# --- Sustav / logovi ---
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# --- Tajne / ključevi (NIKAD javno) ---
+.env
+.env.*
+*.key
+secrets.*
+
+# --- Interna dokumentacija (samo za tebe, klijent ne treba vidjeti) ---
+README.md
+REZERVACIJE.md
+ORGANIZACIJA-KLIJENATA.md
+INTERNO/
+docs-interno/
+*.interno.md
+
+# --- Kontrolne/klijentske tablice (osjetljivi podaci) ---
+*.xlsx
+*.xlsm
+*.csv
+klijenti*.xlsx

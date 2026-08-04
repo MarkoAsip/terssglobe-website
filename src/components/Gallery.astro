@@ -1,0 +1,50 @@
+---
+import { gallery } from "../site.config";
+
+// item može imati opcionalni href -> tile postaje klikabilan
+type Item = { src?: string; alt: string; href?: string };
+const items = gallery.items as Item[];
+---
+
+{gallery.enabled && (
+  <section id="galerija">
+    <div class="container">
+      <div class="section-head">
+        <h2>{gallery.title}</h2>
+        <p class="muted">{gallery.subtitle}</p>
+      </div>
+      <div class="gal">
+        {items.map((it) => {
+          const inner = it.src
+            ? <img src={it.src} alt={it.alt} loading="lazy" />
+            : <div class="ph"><span>{it.alt}</span></div>;
+          return it.href
+            ? <a class="tile link" href={it.href} target="_blank" rel="noopener" aria-label={it.alt}>{inner}</a>
+            : <figure class="tile">{inner}</figure>;
+        })}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .gal {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (min-width: 720px) { .gal { grid-template-columns: repeat(3, 1fr); } }
+  .tile { margin: 0; border-radius: var(--radius); overflow: hidden; display: block; }
+  .tile img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .tile.link { transition: transform 0.15s, box-shadow 0.15s; }
+  .tile.link:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.1); }
+  .tile.link .ph { font-weight: 700; font-size: 1.1rem; color: var(--primary); }
+  .ph {
+    height: 220px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--bgAlt), #e2e8f0);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>

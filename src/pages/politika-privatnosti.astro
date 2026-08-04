@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site, legal } from "../site.config";
+---
+
+<Layout title={legal.privacy.title} description={`Politika privatnosti — ${site.name}`}>
+  <Header />
+  <main class="legal">
+    <div class="container narrow">
+      <h1>{legal.privacy.title}</h1>
+      <p class="muted upd">Zadnja izmjena: {legal.updated}</p>
+
+      <p>
+        Ova Politika privatnosti opisuje kako {site.name} ("mi", "nas") prikuplja,
+        koristi i štiti osobne podatke posjetitelja ove web stranice ({site.url}), u
+        skladu s Općom uredbom o zaštiti podataka (GDPR) i Zakonom o provedbi Opće
+        uredbe o zaštiti podataka.
+      </p>
+
+      <h2>1. Voditelj obrade podataka</h2>
+      <p>
+        Voditelj obrade osobnih podataka je {site.name}, {site.address}.
+        Za sva pitanja o zaštiti podataka možete nas kontaktirati na
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>2. Koje podatke prikupljamo</h2>
+      <p>
+        Prikupljamo samo podatke koje nam dobrovoljno dostavite putem kontakt forme
+        ili forme za rezervaciju: ime i prezime, kontakt podatke (email i/ili telefon)
+        te sadržaj vaše poruke. Automatski se mogu prikupljati i tehnički podaci
+        (IP adresa, vrsta preglednika) radi sigurnosti i ispravnog rada stranice.
+      </p>
+
+      <h2>3. Svrha i pravna osnova obrade</h2>
+      <p>
+        Vaše podatke koristimo isključivo kako bismo odgovorili na vaš upit, dogovorili
+        uslugu ili rezervaciju. Pravna osnova obrade je vaša privola te poduzimanje
+        radnji na vaš zahtjev prije sklapanja ugovora. Podatke ne koristimo za
+        automatizirano donošenje odluka ni profiliranje.
+      </p>
+
+      <h2>4. Čuvanje podataka</h2>
+      <p>
+        Podatke čuvamo samo onoliko dugo koliko je potrebno za ostvarenje navedene
+        svrhe ili u skladu sa zakonskim obvezama, nakon čega se brišu.
+      </p>
+
+      <h2>5. Dijeljenje podataka</h2>
+      <p>
+        Vaše podatke ne prodajemo niti ustupamo trećim stranama u marketinške svrhe.
+        Podaci se mogu obrađivati putem pouzdanih pružatelja usluga (npr. hosting,
+        servis za slanje formi) isključivo u svrhu rada stranice, uz odgovarajuće
+        zaštitne mjere.
+      </p>
+
+      <h2>6. Kolačići (cookies)</h2>
+      <p>
+        Stranica može koristiti nužne kolačiće za ispravan rad. Ako se koriste
+        analitički kolačići, to će biti navedeno i, gdje je potrebno, zatražena vaša
+        privola.
+      </p>
+
+      <h2>7. Vaša prava</h2>
+      <p>
+        Imate pravo na pristup svojim podacima, ispravak, brisanje, ograničenje obrade,
+        prenosivost te pravo na prigovor i povlačenje privole u bilo kojem trenutku.
+        Zahtjev šaljete na <a href={`mailto:${site.email}`}>{site.email}</a>. Također
+        imate pravo podnijeti pritužbu Agenciji za zaštitu osobnih podataka (AZOP).
+      </p>
+
+      <h2>8. Izmjene</h2>
+      <p>
+        Ovu Politiku možemo povremeno ažurirati. Nova verzija vrijedi od datuma
+        objave navedenog na vrhu stranice.
+      </p>
+
+      <p class="back"><a href="/">← Povratak na početnu</a></p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal { padding: 3.5rem 0; }
+  .narrow { max-width: 760px; }
+  .legal h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 0.25rem; }
+  .legal h2 { font-size: 1.2rem; margin: 2rem 0 0.5rem; }
+  .legal p { margin-bottom: 0.9rem; }
+  .upd { margin-bottom: 2rem; font-size: 0.9rem; }
+  .back { margin-top: 2.5rem; }
+</style>

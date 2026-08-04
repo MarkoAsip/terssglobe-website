@@ -1,0 +1,84 @@
+---
+import { site, legal } from "../site.config";
+const year = new Date().getFullYear();
+
+// Lijepe oznake za mreže (fallback = ime ključa)
+const labels: Record<string, string> = {
+  facebook: "Facebook",
+  instagram: "Instagram",
+  linkedin: "LinkedIn",
+  tiktok: "TikTok",
+  youtube: "YouTube",
+};
+const socials = Object.entries(site.social).filter(([, url]) => url);
+
+const legalLinks = [
+  legal.privacy.enabled ? { href: `/${legal.privacy.slug}`, label: legal.privacy.title } : null,
+  legal.terms.enabled ? { href: `/${legal.terms.slug}`, label: legal.terms.title } : null,
+].filter(Boolean) as { href: string; label: string }[];
+---
+
+<footer class="ftr">
+  <div class="container ftr-inner">
+    <div>
+      <strong>{site.name}</strong>
+      <p class="muted">{site.address}</p>
+    </div>
+    {socials.length > 0 && (
+      <div class="social">
+        {socials.map(([net, url]) => (
+          <a href={url} target="_blank" rel="noopener">{labels[net] ?? net}</a>
+        ))}
+      </div>
+    )}
+  </div>
+  <div class="container ftr-bottom">
+    <div class="copyright muted">© {year} {site.name}. Sva prava pridržana.</div>
+    {legalLinks.length > 0 && (
+      <div class="legal-links">
+        {legalLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+    )}
+  </div>
+  <div class="container credit muted">
+    Izrada web stranice: <a href={site.developer.url} target="_blank" rel="noopener">{site.developer.name}</a>
+  </div>
+</footer>
+
+<style>
+  .ftr { background: #12161c; color: #cdd3db; padding: 2.5rem 0 1.5rem; }
+  .ftr strong { color: #fff; }
+  .ftr-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #2a2f37;
+  }
+  .ftr .muted { color: #8b93a0; }
+  .social { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .social a { color: #cdd3db; }
+  .social a:hover { color: #fff; }
+  .ftr-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.25rem;
+  }
+  .copyright { font-size: 0.85rem; }
+  .legal-links { display: flex; gap: 1.25rem; font-size: 0.85rem; }
+  .legal-links a { color: #8b93a0; }
+  .legal-links a:hover { color: #fff; }
+  .credit {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #2a2f37;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .credit a { color: #cdd3db; font-weight: 600; }
+  .credit a:hover { color: #fff; }
+</style>

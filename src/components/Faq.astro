@@ -1,0 +1,45 @@
+---
+import { faq } from "../site.config";
+---
+
+{faq.enabled && (
+  <section id="faq">
+    <div class="container narrow">
+      <div class="section-head">
+        <h2>{faq.title}</h2>
+      </div>
+      <div class="list">
+        {faq.items.map((it) => (
+          <details>
+            <summary>{it.q}</summary>
+            <p class="muted">{it.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .narrow { max-width: 760px; }
+  .list { display: grid; gap: 0.75rem; }
+  details {
+    background: var(--bg);
+    border: 1px solid #eaecef;
+    border-radius: var(--radius);
+    padding: 0.25rem 1.25rem;
+  }
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 1rem 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--primary); font-size: 1.4rem; font-weight: 400; }
+  details[open] summary::after { content: "−"; }
+  details p { padding: 0 0 1rem; margin: 0; }
+</style>
