@@ -1,11 +1,14 @@
 ---
 import { site } from "../site.config";
+const acc = site.taglineAccent;
+const hasAcc = acc && site.tagline.endsWith(acc);
+const lead = hasAcc ? site.tagline.slice(0, -acc.length) : site.tagline;
 ---
 
 <section class="hero">
   <div class="container hero-inner">
-    <p class="eyebrow">Web studio · Zagreb</p>
-    <h1>{site.tagline}</h1>
+    <p class="eyebrow">WEB + MOBILNE APLIKACIJE</p>
+    <h1>{lead}{hasAcc && <span class="accent">{acc}</span>}</h1>
     <p class="muted lead">{site.description}</p>
     <div class="hero-cta">
       <a href="#kontakt" class="btn">Kontaktirajte nas</a>
@@ -19,10 +22,7 @@ import { site } from "../site.config";
     position: relative;
     padding: 6rem 0 5.5rem;
     overflow: hidden;
-    background:
-      radial-gradient(60% 90% at 15% 10%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 60%),
-      radial-gradient(50% 80% at 95% 20%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 55%),
-      linear-gradient(180deg, var(--bgAlt), var(--bg) 70%);
+    background: color-mix(in srgb, var(--primary) 11%, #fff);
   }
   .hero-inner { max-width: 780px; position: relative; }
   .eyebrow {
@@ -32,16 +32,17 @@ import { site } from "../site.config";
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--primary);
-    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    background: #fff;
     padding: 0.35rem 0.8rem;
     border-radius: 999px;
     margin-bottom: 1.1rem;
   }
   h1 {
     font-size: clamp(2.1rem, 5.5vw, 3.4rem);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     margin-bottom: 1rem;
   }
+  .accent { color: var(--accent); }
   .lead { font-size: 1.18rem; margin-bottom: 2rem; max-width: 620px; }
   .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 </style>

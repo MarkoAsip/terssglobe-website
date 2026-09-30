@@ -3,26 +3,20 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../site.config";
-
-const sekcije = [
-  "Usluge", "O nama", "Galerija / reference", "Cjenik",
-  "Rezervacije termina", "Česta pitanja (FAQ)", "Tim", "Kontakt forma",
-];
 ---
 
-<Layout title="Upitnik za izradu web stranice" description="Ispunite kratki upitnik i javljamo se s prijedlogom.">
+<Layout title="Upitnik za mobilnu aplikaciju" description="Opišite kakvu mobilnu aplikaciju trebate i javit ćemo vam se s prijedlogom.">
   <Header />
   <main class="upitnik">
     <div class="container narrow">
-      <h1>Upitnik za izradu web stranice</h1>
+      <h1>Upitnik za mobilnu aplikaciju</h1>
       <p class="muted lead">
-        Ispunite nekoliko kratkih pitanja — dovoljno je par riječi. Na temelju odgovora
-        pripremamo prijedlog i cijenu i javljamo vam se.
+        Opišite nam svoju ideju i potrebe — na temelju odgovora pripremamo prijedlog i cijenu.
       </p>
 
-      <form id="upitnik-form" class="form">
+      <form id="upitnik-app-form" class="form">
         <input type="hidden" name="access_key" value={site.formAccessKey} />
-        <input type="hidden" name="subject" value="Novi upitnik za web stranicu" />
+        <input type="hidden" name="subject" value="Novi upitnik za mobilnu aplikaciju" />
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
 
         <label>Vaše ime i tvrtka *
@@ -33,37 +27,31 @@ const sekcije = [
           <input type="email" name="Email za odgovor" required />
         </label>
 
-        <label>Čime se bavite? *
-          <input type="text" name="Djelatnost" required />
+        <label>Čime se bavite?
+          <input type="text" name="Djelatnost" />
         </label>
 
-        <label>Što želite da stranica postigne?
-          <textarea name="Cilj stranice" rows="3" placeholder="npr. više upita, prodaja, vidljivost"></textarea>
-        </label>
-
-        <label>Imate li logo i boje branda?
-          <input type="text" name="Logo i boje" />
+        <label>Što želite da aplikacija omogući?
+          <textarea name="Cilj aplikacije" rows="3" placeholder="Opišite problem koji aplikacija treba riješiti ili što korisnici trebaju moći napraviti."></textarea>
         </label>
 
         <fieldset class="checks">
-          <legend>Koje sekcije želite na stranici?</legend>
-          {sekcije.map((s) => (
-            <label class="check">
-              <input type="checkbox" name="Sekcije" value={s} /> <span>{s}</span>
-            </label>
-          ))}
-          <label class="check other">
-            <input type="checkbox" name="Sekcije" value="Ostalo" /> <span>Ostalo:</span>
-            <input type="text" name="Sekcije - ostalo" class="other-input" />
-          </label>
+          <legend>Za koje platforme vam treba aplikacija?</legend>
+          <label class="check"><input type="checkbox" name="Platforme" value="Android" /> <span>Android</span></label>
+          <label class="check"><input type="checkbox" name="Platforme" value="iOS" /> <span>iOS</span></label>
+          <label class="check"><input type="checkbox" name="Platforme" value="Nisam siguran/na" /> <span>Nisam siguran/na</span></label>
         </fieldset>
 
-        <label>Imate li već domenu? Koju?
-          <input type="text" name="Domena" />
+        <label>Koje su vam funkcionalnosti važne?
+          <textarea name="Željene funkcionalnosti" rows="3" placeholder="npr. korisnički računi, rezervacije, obavijesti, plaćanje"></textarea>
         </label>
 
-        <label>Primjer stranice koja vam se sviđa (link)
-          <input type="text" name="Primjer stranice" placeholder="https://..." />
+        <label>Treba li se aplikacija povezati s vašom web stranicom ili drugim sustavom?
+          <input type="text" name="Povezivanje sa sustavima" />
+        </label>
+
+        <label>Primjer aplikacije koja vam se sviđa (link)
+          <input type="text" name="Primjer aplikacije" placeholder="https://..." />
         </label>
 
         <label>Željeni rok ili datum objave
@@ -71,14 +59,12 @@ const sekcije = [
         </label>
 
         <button type="submit" class="btn">Pošalji upitnik</button>
-        <p id="ok-msg" class="ok" hidden>✓ Hvala! Upitnik je zaprimljen — javljamo se uskoro.</p>
-        <p id="err-msg" class="err" hidden>Nešto je pošlo po zlu. Pokušajte ponovno ili nam pišite na {site.email}.</p>
+        <p id="app-ok-msg" class="ok" hidden>✓ Hvala! Upitnik je zaprimljen — javljamo se uskoro.</p>
+        <p id="app-err-msg" class="err" hidden>Nešto je pošlo po zlu. Pokušajte ponovno ili nam pišite na {site.email}.</p>
       </form>
 
       <p class="muted materijali">
-        <strong>Materijali (slike, video, logo):</strong> ne morate ih slati sad. Manje datoteka
-        pošaljite emailom na {site.email}, a puno slika ili video preko Google Drivea ili
-        WeTransfera (besplatno) — samo nam pošaljite link.
+        <strong>Materijali:</strong> ako imate skice, primjere ili dodatne informacije, pošaljite ih na {site.email}.
       </p>
     </div>
   </main>
@@ -86,11 +72,11 @@ const sekcije = [
 </Layout>
 
 <script>
-  const form = document.getElementById("upitnik-form") as HTMLFormElement | null;
+  const form = document.getElementById("upitnik-app-form") as HTMLFormElement | null;
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const ok = document.getElementById("ok-msg");
-    const err = document.getElementById("err-msg");
+    const ok = document.getElementById("app-ok-msg");
+    const err = document.getElementById("app-err-msg");
     ok?.setAttribute("hidden", "");
     err?.setAttribute("hidden", "");
     const btn = form.querySelector("button[type=submit]") as HTMLButtonElement;
@@ -140,8 +126,6 @@ const sekcije = [
   .checks legend { font-weight: 700; padding: 0 0.4rem; font-size: 0.92rem; }
   .check { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
   .check input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); }
-  .check.other { flex-wrap: wrap; }
-  .other-input { flex: 1; min-width: 160px; }
   .ok { color: #1a7f37; font-weight: 600; margin: 0; }
   .err { color: #c0362c; font-weight: 600; margin: 0; }
   .materijali {

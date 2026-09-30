@@ -46,7 +46,7 @@ const legalLinks = [
 </footer>
 
 <style>
-  .ftr { background: #12161c; color: #cdd3db; padding: 2.5rem 0 1.5rem; }
+  .ftr { background: var(--footer); color: #cfe1dd; padding: 2.5rem 0 1.5rem; }
   .ftr strong { color: #fff; }
   .ftr-inner {
     display: flex;
@@ -54,11 +54,11 @@ const legalLinks = [
     gap: 1.5rem;
     flex-wrap: wrap;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid #2a2f37;
+    border-bottom: 1px solid color-mix(in srgb, #fff 12%, var(--footer));
   }
-  .ftr .muted { color: #8b93a0; }
+  .ftr .muted { color: #8fb0aa; }
   .social { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .social a { color: #cdd3db; }
+  .social a { color: #cfe1dd; }
   .social a:hover { color: #fff; }
   .ftr-bottom {
     display: flex;
@@ -70,15 +70,15 @@ const legalLinks = [
   }
   .copyright { font-size: 0.85rem; }
   .legal-links { display: flex; gap: 1.25rem; font-size: 0.85rem; }
-  .legal-links a { color: #8b93a0; }
+  .legal-links a { color: #8fb0aa; }
   .legal-links a:hover { color: #fff; }
   .credit {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #2a2f37;
+    border-top: 1px solid color-mix(in srgb, #fff 12%, var(--footer));
     font-size: 0.8rem;
     text-align: center;
   }
-  .credit a { color: #cdd3db; font-weight: 600; }
+  .credit a { color: #cfe1dd; font-weight: 600; }
   .credit a:hover { color: #fff; }
 </style>

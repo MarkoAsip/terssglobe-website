@@ -7,9 +7,11 @@ export const site = {
   // --- Osnovno ---
   name: "TERSS GLOBE d.o.o.",
   shortName: "Terss Globe",
-  tagline: "Gradimo brze i moderne web stranice koje ljudi rado koriste.",
+  tagline: "Olakšajte klijentima put do vaših usluga.",
+  // Dio slogana koji se u heroju ističe akcentnom bojom ("" = bez isticanja)
+  taglineAccent: "vaših usluga.",
   description:
-    "Od ideje do objave u samo par dana.",
+    "Digitalna rješenja koja prate vaše poslovanje. Od ideje do objave u samo par dana.",
   url: "https://www.terssing.com",
   lang: "hr",
 
@@ -35,14 +37,17 @@ export const site = {
     youtube: "",
   },
 
-  // --- Boje branda (profinjena indigo/violet shema) ---
+  // --- Boje branda (shema "Globus": teal + koralj) ---
   colors: {
-    primary: "#4338ca",
-    primaryDark: "#312e81",
-    text: "#1a1830",
-    muted: "#5c5b73",
+    primary: "#0f6b64",
+    primaryDark: "#0a4a45",
+    accent: "#c8442a",
+    text: "#0e1f1d",
+    muted: "#4f615e",
     bg: "#ffffff",
-    bgAlt: "#f5f4fb",
+    bgAlt: "#eef5f3",
+    line: "#d9e7e3",
+    footer: "#0a2f2c",
   },
 
   // --- Kontakt forma (Web3Forms access key) ---
@@ -74,6 +79,16 @@ export const services = [
     text: "Brze, moderne i mobilno prilagođene web stranice za tvrtke i obrte — od vizitke naviše.",
   },
   {
+    icon: "/icons/mob_app.png",
+    title: "Izrada mobilnih aplikacija",
+    text: "Aplikacije prilagođene vašim korisnicima i poslovnim ciljevima, od planiranja do objave.",
+  },
+  {
+    icon: "/icons/mob_app_development.png",
+    title: "Nadogradnja mobilnih aplikacija",
+    text: "Nove funkcionalnosti i ažuriranja kako bi aplikacija pratila potrebe vašeg poslovanja.",
+  },
+  {
     icon: "/icons/uiux.png",
     title: "UX/UI dizajn",
     text: "Osmišljavamo jednostavna i lijepa sučelja koja je ugodno koristiti.",
@@ -94,13 +109,13 @@ export const services = [
 export const about = {
   title: "O nama",
   text: [
-    "TERSS GLOBE je zagrebački studio za izradu web stranica. Spajamo dizajn i tehnologiju u stranice koje su brze, jasne i ugodne za korištenje.",
-    "Radimo za tvrtke i obrte — od jednostavne vizitke do većih stranica, uz punu tehničku brigu.",
+    "TERSS GLOBE izrađuje web stranice i mobilne aplikacije za tvrtke i obrte. Spajamo dizajn i tehnologiju kako bismo stvorili brza, jasna i jednostavna digitalna rješenja prilagođena vašem poslovanju i vašim korisnicima.",
+    "Pomažemo vam od prve ideje do objave, a nakon toga stojimo vam na raspolaganju za podršku, ažuriranja i daljnji razvoj. Bilo da vam treba moderna web stranica ili mobilna aplikacija, cilj nam je olakšati klijentima da vas pronađu i koriste vaše usluge.",
   ],
   stats: [
-    { number: "100%", label: "mobilno prilagođeno" },
-    { number: "SEO", label: "spremne za Google" },
-    { number: "Zagreb", label: "sjedište" },
+    { number: "WEB + MOB", label: "rješenja prilagođena vašim korisnicima" },
+    { number: "OD IDEJE", label: "do objave uz izradu i podršku na jednom mjestu" },
+    { number: "NULA", label: "skrivenih troškova" },
   ],
 };
 
@@ -146,12 +161,12 @@ export const faq = {
       a: "Da. Sve stranice izrađujemo mobilno-prvo i jednako dobro rade na mobitelu, tabletu i računalu.",
     },
     {
-      q: "Mogu li kasnije mijenjati sadržaj?",
-      a: "Da. Sitne izmjene pokrivene su mjesečnim održavanjem — javite nam što treba i riješimo.",
+      q: "Izrađujete li mobilne aplikacije?",
+      a: "Da. Izrađujemo mobilne aplikacije prema ciljevima vašeg poslovanja i potrebama korisnika. Opseg i funkcionalnosti dogovaramo prije početka rada.",
     },
     {
-      q: "Kako primam upite poslane s kontakt forme?",
-      a: "Direktno na vaš email, bez ikakvih prijava i dodatnih alata. Po želji ih možemo skupljati i u tablicu.",
+      q: "Možete li nadograditi postojeću mobilnu aplikaciju?",
+      a: "Da. Možemo dodati nove funkcionalnosti ili unaprijediti postojeće. Prvo pregledamo aplikaciju i dogovorimo opseg radova.",
     },
   ],
 };
@@ -167,10 +182,11 @@ export const team = {
 // --- CTA sekcija (poziv na upitnik) ---
 export const cta = {
   enabled: true,
-  title: "Razmišljate o novoj web stranici?",
+  title: "Razmišljate o web stranici ili mobilnoj aplikaciji?",
   text: "Ispunite kratki upitnik — traje par minuta. Na temelju odgovora javljamo se s prijedlogom i cijenom.",
   buttons: [
-    { label: "Ispuni upitnik", href: "/upitnik" },
+    { label: "Upitnik za web", href: "/upitnik" },
+    { label: "Upitnik za mobilnu aplikaciju", href: "/upitnik-mobilna-aplikacija" },
   ],
 };
 

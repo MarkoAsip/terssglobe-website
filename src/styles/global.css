@@ -1,12 +1,19 @@
 :root {
-  --primary: #1e5aa8;
-  --primaryDark: #14417a;
-  --text: #1a1a1a;
-  --muted: #5b6470;
+  /* Zadane vrijednosti — stvarne boje dolaze iz site.config.ts (Layout.astro) */
+  --primary: #0f6b64;
+  --primaryDark: #0a4a45;
+  --accent: #c8442a;
+  --text: #0e1f1d;
+  --muted: #4f615e;
   --bg: #ffffff;
-  --bgAlt: #f5f7fa;
+  --bgAlt: #eef5f3;
+  --line: #d9e7e3;
+  --footer: #0a2f2c;
   --maxw: 1120px;
-  --radius: 12px;
+  --radius: 16px;
+  --btnRadius: 999px;
+  --font-display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,7 +21,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
@@ -30,7 +37,7 @@ body {
 section { padding: 4.5rem 0; }
 .alt { background: var(--bgAlt); }
 
-h1, h2, h3 { line-height: 1.2; font-weight: 700; }
+h1, h2, h3 { line-height: 1.2; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.02em; }
 h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 0.75rem; }
 p { color: var(--text); }
 .muted { color: var(--muted); }
@@ -43,7 +50,7 @@ a:hover { color: var(--primaryDark); }
   background: var(--primary);
   color: #fff;
   padding: 0.85rem 1.6rem;
-  border-radius: var(--radius);
+  border-radius: var(--btnRadius);
   font-weight: 600;
   border: none;
   cursor: pointer;

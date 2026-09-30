@@ -1,5 +1,14 @@
 ---
 import { services } from "../site.config";
+
+// Linijske ikone (boja = var(--accent)). Ključ u site.config.ts -> icon.
+// Za vlastitu sliku upiši putanju ("/icons/x.png"), za emoji sam emoji.
+const icons: Record<string, string> = {
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/>',
+  layout: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M9 9v11"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/><path d="M8 12l2-2 2 2 2-3"/>',
+  wrench: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/>',
+};
 ---
 
 <section id="usluge" class="alt">
@@ -11,9 +20,11 @@ import { services } from "../site.config";
     <div class="svc">
       {services.map((s) => (
         <article class="card">
-          {s.icon.startsWith("/") || s.icon.startsWith("http")
-            ? <img class="icon-img" src={s.icon} alt="" loading="lazy" />
-            : <div class="icon">{s.icon}</div>}
+          {icons[s.icon]
+            ? <div class="icon-svg"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[s.icon]} /></div>
+            : s.icon.startsWith("/") || s.icon.startsWith("http")
+              ? <img class="icon-img" src={s.icon} alt="" loading="lazy" />
+              : <div class="icon">{s.icon}</div>}
           <h3>{s.title}</h3>
           <p class="muted">{s.text}</p>
         </article>
@@ -52,7 +63,7 @@ import { services } from "../site.config";
     background: var(--bg);
     padding: 1.75rem;
     border-radius: var(--radius);
-    border: 1px solid #eaecef;
+    border: 1px solid var(--line);
     transition: transform 0.15s, box-shadow 0.15s;
   }
   .card:hover {
@@ -60,14 +71,21 @@ import { services } from "../site.config";
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
   }
   .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .icon-svg {
+    width: 52px; height: 52px; border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, #fff);
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+  }
   .icon-img { width: 56px; height: 56px; object-fit: contain; margin-bottom: 0.85rem; display: block; }
   h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
 
-  /* DESKTOP: 4 u red, bez carousela */
+  /* DESKTOP: 3 u red, bez carousela */
   @media (min-width: 900px) {
     .svc {
       grid-auto-flow: row;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       grid-auto-columns: auto;
       overflow: visible;
       margin: 0;
